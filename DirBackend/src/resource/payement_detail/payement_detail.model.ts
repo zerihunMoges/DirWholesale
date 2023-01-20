@@ -9,7 +9,7 @@ export interface IProductInterface {
   amount: Number
   provider : string
   price: Number
-  status : string
+  status : Enumerator
 }
 
 const payment_detailSchema= new mongoose.Schema({
@@ -25,7 +25,14 @@ const payment_detailSchema= new mongoose.Schema({
     type: String,
     required: true
   },
+  status:{
+    type: String,
+    enum : ['Pending','Cancelled','Completed'],
+    default: 'Pending'
+  }
+ ,
   
+
   price: {
     type: Number,
     required: true
