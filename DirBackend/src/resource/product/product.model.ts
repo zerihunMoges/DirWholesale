@@ -1,10 +1,13 @@
 import mongoose from 'mongoose'
 
+import { CoreCategoryType } from 'prettier'
+
 export interface IProductInterface {
   name: string
-  type: mongoose.Types.objectId
+  desc: string
+  category: mongoose.Types.objectId
+  sizes: []
   price: Number
-  color: string
 }
 
 const ProductSchema = new mongoose.Schema({
@@ -12,9 +15,22 @@ const ProductSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  desc: {
+    type: String
+  },
+  category: {
+    type: mongoose.Types.objectId,
+    required: true
+  },
+  sizes: {
+    type: []
+  },
   price: {
     type: Number
   }
 })
 
-export const Club = mongoose.model<IProductInterface>('Club', ProductSchema)
+export const Product = mongoose.model<IProductInterface>(
+  'Product',
+  ProductSchema
+)

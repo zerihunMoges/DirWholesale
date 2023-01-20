@@ -3,8 +3,7 @@ import mongoose from 'mongoose'
 export interface IProductCategoryInterface {
   name: string
   desc: string
-  sizes: []
-  colors: []
+  size: []
 }
 
 const ProductCategorySchema = new mongoose.Schema(
@@ -13,13 +12,12 @@ const ProductCategorySchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    desc: {},
+    desc: {
+      type: String
+    },
     size: {
       type: [],
       required: true
-    },
-    color: {
-      type: []
     }
   },
   {
