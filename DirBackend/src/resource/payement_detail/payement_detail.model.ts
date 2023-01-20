@@ -25,9 +25,7 @@ const payment_detailSchema= new mongoose.Schema({
     type: String,
     required: true
   },
-  sizes: {
-    type: []
-  },
+  
   price: {
     type: Number,
     required: true
