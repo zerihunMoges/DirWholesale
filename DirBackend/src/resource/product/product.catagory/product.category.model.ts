@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 export interface IProductCategoryInterface {
   name: string
   desc: string
-  size: []
+  sizes: []
 }
 
 const ProductCategorySchema = new mongoose.Schema(
@@ -15,15 +15,15 @@ const ProductCategorySchema = new mongoose.Schema(
     desc: {
       type: String
     },
-    size: {
+    sizes: {
       type: [],
       required: true
     }
   },
   {
     timestamps: {
-      createdAt: 'dateUploaded',
-      updatedAt: 'dateUpdated'
+      createdAt: 'createdAt',
+      updatedAt: 'updatedAt'
     }
   }
 )

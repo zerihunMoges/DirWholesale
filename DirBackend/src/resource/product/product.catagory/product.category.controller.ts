@@ -6,10 +6,16 @@ import {
 
 export async function addCategory(req, res, next: NextFunction) {
   try {
-    const { name, desc, size } = req.body
-    const category = ProductCategory.create({ name, desc, size })
+    const { name, desc, sizes } = req.body
+    const category = await ProductCategory.create({ name, desc, sizes })
+    console.log(category)
     res.status(200).json(category)
   } catch (err: any) {
     res.status(500).json({ message: err.message })
   }
+}
+
+export async function getCategories(req, res, next: NextFunction) {
+  const categories = await ProductCategory.find({})
+  res.status(200).json(categories)
 }

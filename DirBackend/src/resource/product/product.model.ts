@@ -5,28 +5,30 @@ import { CoreCategoryType } from 'prettier'
 export interface IProductInterface {
   name: string
   desc: string
-  category: mongoose.Types.objectId
+  category: mongoose.Types.ObjectId
   sizes: []
-  price: Number
+  price: number
 }
 
 const ProductSchema = new mongoose.Schema({
   name: {
     type: String,
+    unique: true,
     required: true
   },
   desc: {
     type: String
   },
   category: {
-    type: mongoose.Types.objectId,
+    type: mongoose.Types.ObjectId,
     required: true
   },
   sizes: {
     type: []
   },
   price: {
-    type: Number
+    type: Number,
+    required: true
   }
 })
 
