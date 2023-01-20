@@ -3,8 +3,16 @@ import { Payment_detail } from './payement_detail.model'
 
 export async function addpayment_detail(req, res, next: NextFunction) {
   try {
-    const { name, desc, sizes, prize } = req.body
-    const payement_detail = await Payment_detail.create({ name, desc, sizes, prize })
+    const {  Order_Id,
+        amount,
+        provider ,
+        price,
+        status  } = req.body
+    const payement_detail = await Payment_detail.create({ Order_Id,
+        amount,
+        provider ,
+        price,
+        status  })
     res.status(200).json(payement_detail)
   } catch (err: any) {
     res.status(500).json({ message: err.message })

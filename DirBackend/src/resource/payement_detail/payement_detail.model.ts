@@ -5,15 +5,16 @@ import { CoreCategoryType } from 'prettier'
 import { Order } from '../order/order.model'
 
 export interface IProductInterface {
-  Order_Id: ObjectId
+  Order_Id: String
   amount: Number
   provider : string
+  price: Number
   status : string
 }
 
 const payment_detailSchema= new mongoose.Schema({
   Order_Id: {
-    type: mongoose.Types.ObjectId,
+    type: String,
     unique: true,
     required: true
   },
