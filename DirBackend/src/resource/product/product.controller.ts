@@ -1,10 +1,40 @@
 import { NextFunction } from 'express'
+import cloudinary from '../../config/cloudinary'
+import { ProductCategory } from './product.catagory/product.category.model'
 import { Product } from './product.model'
 
+export async function uploadProduct(img) {
+  try {
+    const cloudinaryImage = await cloudinary.uploader.upload(img.path, {
+      folder: 'Products'
+    })
+
+    return cloudinaryImage
+  } catch (err) {
+    console.log(err)
+  }
+}
 export async function addProduct(req, res, next: NextFunction) {
   try {
-    const { name, desc, sizes, prize } = req.body
-    const product = await Product.create({ name, desc, sizes, prize })
+    const { name, desc, category, sizes, price } = req.body
+    let image = req.file
+
+    const productCategory = await ProductCategory.findById(category)
+    if (!productCategory) {
+      res.status(400).json({ message: 'category not found' })
+    }
+    const cloudinaryImage = await uploadProduct(image)
+    if (!cloudinaryImage) {
+      res.status(400).json({ message: 'Image Upload Failed' })
+    }
+    const product = await Product.create({
+      name,
+      img: cloudinaryImage.secure_url,
+      desc,
+      category: productCategory.id,
+      sizes,
+      price
+    })
     res.status(200).json(product)
   } catch (err: any) {
     res.status(500).json({ message: err.message })

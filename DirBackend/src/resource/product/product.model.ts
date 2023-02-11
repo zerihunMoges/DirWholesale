@@ -1,10 +1,9 @@
 import mongoose from 'mongoose'
 
-import { CoreCategoryType } from 'prettier'
-
 export interface IProductInterface {
   name: string
   desc: string
+  img: string
   category: mongoose.Types.ObjectId
   sizes: []
   price: number
@@ -18,6 +17,10 @@ const ProductSchema = new mongoose.Schema({
   },
   desc: {
     type: String
+  },
+  img: {
+    type: String,
+    required: true
   },
   category: {
     type: mongoose.Types.ObjectId,
