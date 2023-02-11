@@ -5,42 +5,41 @@ import { CoreCategoryType } from 'prettier'
 import { Order } from '../order/order.model'
 
 export interface IProductInterface {
-  Order_Id: String
+  user_id: mongoose.Types.ObjectId
   amount: Number
-  provider : string
+  provider: string
   price: Number
-  status : Enumerator
+  status: Enumerator
 }
 
-const payment_detailSchema= new mongoose.Schema({
-  Order_Id: {
-    type: String,
-    unique: true,
-    required: true
+const payment_detailSchema = new mongoose.Schema(
+  {
+    user_Id: {
+      type: mongoose.Types.ObjectId,
+      required: true
+    },
+    amount: {
+      type: Number,
+      required: true
+    },
+    provider: {
+      type: String,
+      required: true
+    },
+    status: {
+      type: String,
+      enum: ['Pending', 'Cancelled', 'Completed'],
+      default: 'Pending'
+    },
+    price: {
+      type: Number,
+      required: true
+    }
   },
-  amount: {
-    type: Number
-  },
- provider: {
-    type: String,
-    required: true
-  },
-  status:{
-    type: String,
-    enum : ['Pending','Cancelled','Completed'],
-    default: 'Pending'
-  }
- ,
-  
-
-  price: {
-    type: Number,
-    required: true
-  },
-},{timestamps : true})
+  { timestamps: true }
+)
 
 export const Payment_detail = mongoose.model<IProductInterface>(
   'Payment_detail',
   payment_detailSchema
-
 )
