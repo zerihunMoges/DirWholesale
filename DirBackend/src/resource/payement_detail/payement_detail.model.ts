@@ -1,7 +1,5 @@
-import { timeStamp } from 'console'
 import mongoose, { ObjectId } from 'mongoose'
 
-import { CoreCategoryType } from 'prettier'
 import { Order } from '../order/order.model'
 
 export interface IProductInterface {
