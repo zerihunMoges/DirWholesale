@@ -16,7 +16,7 @@ export async function uploadProduct(img) {
 }
 export async function addProduct(req, res, next: NextFunction) {
   try {
-    const { name, desc, category, sizes, price } = req.body
+    const { name, desc, category, sizes, price, qty } = req.body
     let image = req.file
 
     const productCategory = await ProductCategory.findById(category)
@@ -33,6 +33,7 @@ export async function addProduct(req, res, next: NextFunction) {
       desc,
       category: productCategory.id,
       sizes,
+      qty,
       price
     })
     res.status(200).json(product)

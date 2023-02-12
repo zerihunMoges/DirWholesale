@@ -30,10 +30,6 @@ const payment_detailSchema = new mongoose.Schema(
       type: String,
       enum: ['Pending', 'Cancelled', 'Completed'],
       default: 'Pending'
-    },
-    price: {
-      type: Number,
-      required: true
     }
   },
   { timestamps: true }

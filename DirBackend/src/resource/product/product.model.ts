@@ -7,6 +7,7 @@ export interface IProductInterface {
   category: mongoose.Types.ObjectId
   sizes: []
   price: number
+  qty: number
 }
 
 const ProductSchema = new mongoose.Schema({
@@ -32,6 +33,10 @@ const ProductSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: true
+  },
+  qty: {
+    type: Number,
+    default: 0
   }
 })
 
