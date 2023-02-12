@@ -72,7 +72,9 @@ export async function addOrder(req, res, next) {
 }
 
 export async function getOrders(req, res, next) {
-  return await Order.find()
+  const orders = await Order.find()
+
+  res.status(200).json(orders)
 }
 
 export async function getOrder(req, res, next) {
