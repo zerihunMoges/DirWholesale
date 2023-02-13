@@ -16,6 +16,14 @@ import userRouter from './resource/user/user.route'
 
 const app = express()
 app.use(bodyParser.json())
+app.use(cors())
+
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  next()
+})
+
 app.use(urlencoded({ extended: true }))
 app.use('/api/admin/product', isAdmin, AdminProductRouter)
 app.use('/api/admin/order', isAdmin, OrderRouter)
