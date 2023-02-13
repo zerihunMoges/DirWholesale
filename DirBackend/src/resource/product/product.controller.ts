@@ -60,7 +60,11 @@ export async function getProduct(req, res, next: NextFunction) {
 
 export async function getProducts(req, res, next: NextFunction) {
   try {
-    const { q } = req.query
+    let q = ''
+    if (req.query.q) {
+      q = req.query.q.toString()
+    }
+
     const products = await Product.find({
       name: { $regex: `${q}`, $options: 'i' },
       desc: { $regex: `${q}`, $options: 'i' }
