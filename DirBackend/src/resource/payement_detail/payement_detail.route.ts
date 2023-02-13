@@ -5,7 +5,8 @@ import {
   getPayment_detail,
   getPayment_details,
   updatePayement_detail,
-  deletePayment_detail
+  deletePayment_detail,
+  verifyIPN
 } from './payement_detail.controller'
 
 const payment_detailRouter = Router()
@@ -14,6 +15,7 @@ AdminPaymentRouter.patch('/:id', updatePayement_detail)
 AdminPaymentRouter.get('/:id', getPayment_detail)
 AdminPaymentRouter.get('', getPayment_details)
 
+payment_detailRouter.post('/ipn', verifyIPN)
 payment_detailRouter.post('', addpayment_detail)
 payment_detailRouter.delete('/:id', deletePayment_detail)
 payment_detailRouter.patch('/:id', updatePayement_detail)
