@@ -2,6 +2,7 @@ import bodyParser, { urlencoded } from 'body-parser'
 import express from 'express'
 import { configs } from './config'
 import { connect } from './db/setup'
+import cors from 'cors'
 import { isAdmin } from './middlewares/authenticate'
 import OrderRouter, { AdminOrderRouter } from './resource/order/order.route'
 import payment_detailRouter, {
