@@ -25,6 +25,7 @@ const ProductSchema = new mongoose.Schema({
   },
   category: {
     type: mongoose.Types.ObjectId,
+    ref: 'ProductCategory',
     required: true
   },
   sizes: {

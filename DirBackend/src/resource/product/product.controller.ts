@@ -45,7 +45,10 @@ export async function addProduct(req, res, next: NextFunction) {
 export async function getProduct(req, res, next: NextFunction) {
   try {
     const { _id } = req.params
-    const product = await Product.findById(_id)
+    const product = await Product.findById(_id).populate({
+      path: 'category',
+      model: ProductCategory
+    })
     if (product) {
       return res.status(200).json(product)
     }
@@ -57,7 +60,10 @@ export async function getProduct(req, res, next: NextFunction) {
 
 export async function getProducts(req, res, next: NextFunction) {
   try {
-    const products = await Product.find({})
+    const products = await Product.find({}).populate({
+      path: 'category',
+      model: ProductCategory
+    })
     console.log(products)
     return res.status(200).json(products)
   } catch (err: any) {

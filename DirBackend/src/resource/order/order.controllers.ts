@@ -1,3 +1,5 @@
+import { Payment_detail } from '../payement_detail/payement_detail.model'
+import { ProductCategory } from '../product/product.catagory/product.category.model'
 import { IProductInterface, Product } from '../product/product.model'
 import { User } from '../user/user.model'
 import { OrderItem } from './order.item.model'
@@ -72,7 +74,10 @@ export async function addOrder(req, res, next) {
 }
 
 export async function getOrders(req, res, next) {
-  const orders = await Order.find()
+  const orders = await Order.find().populate({
+    path: 'payment',
+    model: Payment_detail
+  })
 
   res.status(200).json(orders)
 }
@@ -84,7 +89,11 @@ export async function getOrder(req, res, next) {
     const order = await Order.findById(id)
     const orderItems = await OrderItem.find({ order: order.id }).populate({
       path: 'product',
-      model: Product
+      model: Product,
+      populate: {
+        path: 'category',
+        model: ProductCategory
+      }
     })
     return res.status(200).json({
       order: order,
