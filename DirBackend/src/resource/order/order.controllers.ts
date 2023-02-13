@@ -74,10 +74,17 @@ export async function addOrder(req, res, next) {
 }
 
 export async function getOrders(req, res, next) {
-  const orders = await Order.find().populate({
-    path: 'payment',
-    model: Payment_detail
-  })
+  const orders = await Order.find().populate([
+    {
+      path: 'user',
+      model: User,
+      select: ['_id', 'firstName', 'lastName', 'email']
+    },
+    {
+      path: 'payment',
+      model: Payment_detail
+    }
+  ])
 
   res.status(200).json(orders)
 }

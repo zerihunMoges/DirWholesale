@@ -4,6 +4,7 @@ export interface IOrderInterface {
   user: mongoose.Types.ObjectId
   total: Number
   payment: mongoose.Types.ObjectId
+  status: Enumerator
 }
 
 const OrderSchema = new mongoose.Schema(
@@ -19,6 +20,11 @@ const OrderSchema = new mongoose.Schema(
     payment: {
       type: mongoose.Types.ObjectId,
       ref: 'Payment'
+    },
+    status: {
+      type: String,
+      enum: ['Pending', 'Cancelled', 'Completed'],
+      default: 'Pending'
     }
   },
   {
