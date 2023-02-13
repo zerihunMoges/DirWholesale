@@ -110,3 +110,19 @@ export async function getOrder(req, res, next) {
     res.status(500).json(err.message)
   }
 }
+
+export async function getOrdersByUser(req, res, next) {
+  const orders = await Order.find({ user: req.params.userid }).populate([
+    {
+      path: 'user',
+      model: User,
+      select: ['_id', 'firstName', 'lastName', 'email']
+    },
+    {
+      path: 'payment',
+      model: Payment_detail
+    }
+  ])
+
+  res.status(200).json(orders)
+}

@@ -1,9 +1,19 @@
 import { Router } from 'express'
-import { addOrder, getOrder, getOrders, getTotal } from './order.controllers'
+import { isAdmin, isAuthenticated } from '../../middlewares/authenticate'
+import {
+  addOrder,
+  getOrder,
+  getOrders,
+  getOrdersByUser,
+  getTotal
+} from './order.controllers'
 
-const OrderRouter = Router()
-OrderRouter.post('', addOrder)
-OrderRouter.get('', getOrders)
+export const OrderRouter = Router()
+export const AdminOrderRouter = Router()
+
+OrderRouter.post('', isAuthenticated, addOrder)
+OrderRouter.get('/:userid', isAuthenticated, getOrdersByUser)
+OrderRouter.get('', isAdmin, getOrders)
 OrderRouter.get('/:id', getOrder)
 OrderRouter.post('/total', getTotal)
 

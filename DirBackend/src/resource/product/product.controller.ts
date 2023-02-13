@@ -60,7 +60,11 @@ export async function getProduct(req, res, next: NextFunction) {
 
 export async function getProducts(req, res, next: NextFunction) {
   try {
-    const products = await Product.find({}).populate({
+    const { q } = req.query
+    const products = await Product.find({
+      name: { $regex: `${q}`, $options: 'i' },
+      desc: { $regex: `${q}`, $options: 'i' }
+    }).populate({
       path: 'category',
       model: ProductCategory
     })
@@ -68,5 +72,25 @@ export async function getProducts(req, res, next: NextFunction) {
     return res.status(200).json(products)
   } catch (err: any) {
     res.status(500).json({ message: err.message })
+  }
+}
+
+export async function deleteProduct(req, res, next: NextFunction) {
+  try {
+    const { id } = req.params
+    const product = await Product.deleteOne({ _id: id })
+    return res.status(200)
+  } catch (err: any) {
+    res.status(400).json({ message: err.message })
+  }
+}
+
+export async function updateProduct(req, res, next: NextFunction) {
+  try {
+    const { id } = req.params
+    const product = await Product.updateOne({ _id: id }, req.body)
+    return res.status(200).json(product)
+  } catch (err: any) {
+    res.status(400).json({ message: err.message })
   }
 }

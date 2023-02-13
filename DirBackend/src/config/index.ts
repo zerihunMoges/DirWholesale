@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 export const configs = {
-  port: process.env.PORT || 8000,
+  port: process.env.PORT || 3000,
   mongoUrl: process.env.DATABASE,
   cloudinaryCloudName: process.env.cloudinaryCloudName,
   cloudinaryApiKey: process.env.cloudinaryApiKey,
