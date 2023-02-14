@@ -102,6 +102,7 @@ export async function verifyIPN(req, res, next) {
       amount: totalAmount
     })
     order.payment = payment.id
+    order.payment_status = 'Completed'
     order.save()
 
     res.status(200)
