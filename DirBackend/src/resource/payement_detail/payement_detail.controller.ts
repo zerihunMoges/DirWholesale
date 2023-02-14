@@ -99,7 +99,7 @@ export async function verifyIPN(req, res, next) {
       user_id: order.user,
       provider: 'Yene Pay',
       status: 'Completed',
-      amount: totalAmount
+      amount: TotalAmount
     })
     order.payment = payment.id
     order.payment_status = 'Completed'
