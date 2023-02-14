@@ -39,7 +39,7 @@ export async function addOrder(req, res, next) {
     const { orders } = req.body
     const { _id } = res.locals
     const user = await User.findById(_id)
-    const total = orders.reduce(
+    const total = await orders.reduce(
       async (accumulator, { product_id, quantity }) => {
         const product: IProductInterface = await Product.findById(product_id)
         const price: number = product.price
@@ -53,6 +53,7 @@ export async function addOrder(req, res, next) {
       },
       0
     )
+    
     const order = await Order.create({ user: _id, total })
 
     orders.forEach(async (singleOrder) => {
