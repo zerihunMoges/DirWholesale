@@ -7,9 +7,10 @@ import { Order } from './order.model'
 
 export async function getTotal(req, res, next) {
   try {
-    const { userId, orders } = req.body
+    const { orders } = req.body
+    const { _id } = res.locals
+    const user = User.findById(_id)
 
-    const user = User.findById(userId)
     const total = await orders.reduce(
       async (accumulator, { product_id, quantity }) => {
         const product: IProductInterface = await Product.findById(product_id)
@@ -35,8 +36,9 @@ export async function getTotal(req, res, next) {
 
 export async function addOrder(req, res, next) {
   try {
-    const { userId, orders } = req.body
-    const user = User.findById(userId)
+    const { orders } = req.body
+    const { _id } = res.locals
+    const user = await User.findById(_id)
     const total = await orders.reduce(
       async (accumulator, { product_id, quantity }) => {
         const product: IProductInterface = await Product.findById(product_id)
@@ -51,7 +53,7 @@ export async function addOrder(req, res, next) {
       },
       0
     )
-    const order = await Order.create({ user: userId, total })
+    const order = await Order.create({ user: _id, total })
 
     orders.forEach(async (singleOrder) => {
       const product = await Product.findById(singleOrder.product_id)

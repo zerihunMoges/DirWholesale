@@ -1,6 +1,8 @@
 import { NextFunction } from 'express'
 import { Payment_detail } from './payement_detail.model'
 import { Request, Response } from 'express'
+import { Order } from '../order/order.model'
+import { User } from '../user/user.model'
 
 export async function addpayment_detail(
   req: Request,
@@ -89,12 +91,20 @@ export async function deletePayment_detail(req, res, next) {
 }
 
 export async function verifyIPN(req, res, next) {
-  const { merchantOrderId, totalAmount } = req.body
+  try {
+    const { merchantOrderId, totalAmount } = req.body
+    const order = await Order.findById(merchantOrderId)
+    const payment = await Payment_detail.create({
+      user_id: order.user,
+      provider: 'Yene Pay',
+      status: 'Completed',
+      amount: totalAmount
+    })
+    order.payment = payment.id
+    order.save()
 
-  const payment = await Payment_detail.findOneAndUpdate(
-    { _id: merchantOrderId },
-    { status: 'Completed', amount: totalAmount }
-  )
-  await payment.save()
-  res.status(200)
+    res.status(200)
+  } catch (error) {
+    console.log(error)
+  }
 }

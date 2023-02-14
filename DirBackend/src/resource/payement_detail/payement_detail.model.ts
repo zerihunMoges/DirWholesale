@@ -6,7 +6,6 @@ export interface IProductInterface {
   user_id: mongoose.Types.ObjectId
   amount: Number
   provider: string
-  price: Number
   status: Enumerator
 }
 
