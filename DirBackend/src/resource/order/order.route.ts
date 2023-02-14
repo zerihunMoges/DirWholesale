@@ -12,7 +12,7 @@ export const OrderRouter = Router()
 export const AdminOrderRouter = Router()
 
 OrderRouter.post('', isAuthenticated, addOrder)
-OrderRouter.get('/:userid', isAuthenticated, getOrdersByUser)
+OrderRouter.get('/user/:userid', isAuthenticated, getOrdersByUser)
 OrderRouter.get('', isAdmin, getOrders)
 OrderRouter.get('/:id', getOrder)
 OrderRouter.post('/total', getTotal)
