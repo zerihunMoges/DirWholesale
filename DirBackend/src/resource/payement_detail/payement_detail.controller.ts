@@ -92,9 +92,9 @@ export async function deletePayment_detail(req, res, next) {
 
 export async function verifyIPN(req, res, next) {
   try {
-    const { merchantOrderId, totalAmount } = req.body
+    const { MerchantOrderId, TotalAmount } = req.body
     console.log(req.body)
-    const order = await Order.findById(merchantOrderId)
+    const order = await Order.findById(MerchantOrderId)
     const payment = await Payment_detail.create({
       user_id: order.user,
       provider: 'Yene Pay',
