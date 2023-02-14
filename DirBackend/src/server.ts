@@ -2,6 +2,7 @@ import bodyParser, { urlencoded } from 'body-parser'
 import express from 'express'
 import { configs } from './config'
 import { connect } from './db/setup'
+import cors from 'cors'
 import { isAdmin } from './middlewares/authenticate'
 import OrderRouter, { AdminOrderRouter } from './resource/order/order.route'
 import payment_detailRouter, {
@@ -16,6 +17,8 @@ import userRouter from './resource/user/user.route'
 
 const app = express()
 app.use(bodyParser.json())
+app.use(cors())
+
 app.use(urlencoded({ extended: true }))
 app.use('/api/admin/product', isAdmin, AdminProductRouter)
 app.use('/api/admin/order', isAdmin, OrderRouter)
